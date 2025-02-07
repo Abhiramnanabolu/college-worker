@@ -55,7 +55,9 @@ async function initializeDriver() {
     let driver;
     try {
         const options = new chrome.Options();
-        options.addArguments('--disable-gpu', '--no-sandbox', '--headless');
+        const uniqueUserDataDir = `/tmp/chrome-user-data-${Date.now()}-${Math.random()}`;
+        options.addArguments('--disable-gpu', '--no-sandbox', '--headless', `--user-data-dir=${uniqueUserDataDir}`);
+
         
         driver = await new Builder()
             .forBrowser('chrome')
